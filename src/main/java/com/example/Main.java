@@ -71,10 +71,23 @@ public class Main {
     path = "/rectangle",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleBrowserRectangleSubmit(Rectangle rectangle) throws Exception {
+  public String handleBrowserRectangleSubmit(Map<String, Object> model, Rectangle rectangle) throws Exception {
     //save to database wali line yaha aayegi
-    System.out.println("Rectangle Name: " + rectangle.getRect_name() + "\nRectangle Color: " + rectangle.getRect_color() + "\nRectangle Height " + rectangle.getRect_height() + "\nRectangle Width: " + rectangle.getRect_width() + "\n\n");
-    return "redirect:/rectangle/success";
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS rectangle (id serial, name varchar(20), color varchar(20), height integer, width integer)");
+      String output = "INSERT INTO names(name, color, height, width) VALUES ('" + rectangle.getRect_name() + "','" + rectangle.getRect_color() + "','" + rectangle.getRect_height() + "','" + rectangle.getRect_width() + "')";
+      stmt.executeUpdate("");
+
+      model.put("record", output);
+      return "db";
+      String output = ("Rectangle Name: " + rectangle.getRect_name() + "\nRectangle Color: " + rectangle.getRect_color() + "\nRectangle Height " + rectangle.getRect_height() + "\nRectangle Width: " + rectangle.getRect_width() + "\n\n");
+      return "redirect:/rectangle/success";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    
   }
 
   @GetMapping("/rectangle/success")
