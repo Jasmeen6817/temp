@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Users/abhaydhiman/Desktop/java-getting-started/src/main/resources/public/stylesheets/main.css">
+    <title>New Rectangle Form</title>
+</head>
+<body>
+<form action="#" method="post" th:action="@{/rectangle}" th:object="${rectangle}">
+    <input type="text" th:field=*{rect_name} placeholder="Rectangle Name">
+    <input type="text" th:field=*{rect_color} placeholder="Rectangle Color">
+    <input type="number" th:field=*{rect_width} placeholder="Rectangle Width">
+    <input type="number" th:field=*{rect_height} placeholder="Rectangle Height">
+    <input type="submit" value="Submit Retangle">
+    </form>
+
+</body>
+</html>
