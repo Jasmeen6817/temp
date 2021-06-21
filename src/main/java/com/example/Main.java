@@ -122,7 +122,7 @@ public class Main {
       return new HikariDataSource();
     } else {
       HikariConfig config = new HikariConfig();
-      config.setJdbcUrl(dbUrl);
+      //config.setJdbcUrl(dbUrl);
       return new HikariDataSource(config);
     }
   }
